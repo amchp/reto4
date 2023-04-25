@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  moodle:
+    image: 'bitnami/moodle:latest'
+    ports:
+      - '80:80'
+      - '443:443'
+    environment:
+      - MOODLE_DATABASE_HOST=<your_database_host>
+      - MOODLE_DATABASE_PORT_NUMBER=<your_database_port>
+      - MOODLE_DATABASE_USER=<your_database_user>
+      - MOODLE_DATABASE_PASSWORD=<your_database_password>
+      - MOODLE_DATABASE_NAME=<your_database_name>
+      - MOODLE_USERNAME=admin
+      - MOODLE_PASSWORD=adminpassword
+      - MOODLE_EMAIL=admin@example.com
+    volumes:
+      - moodle_data:/bitnami/moodle
