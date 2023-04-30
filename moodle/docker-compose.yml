@@ -22,6 +22,7 @@ services:
       - MYSQL_CLIENT_CREATE_DATABASE_PASSWORD=12345678
       - MYSQL_CLIENT_CREATE_DATABASE_CHARACTER_SET=utf8mb4
       - MYSQL_CLIENT_CREATE_DATABASE_COLLATE=utf8mb4_unicode_ci
+      - MOODLE_SKIP_BOOTSTRAP=yes
     volumes:
       - 'nfs:/moodle:/bitnami/moodle'
       - 'nfs:/moodledata:/bitnami/moodledata'
