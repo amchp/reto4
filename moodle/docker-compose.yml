@@ -6,14 +6,14 @@ services:
       - '80:8080'
     environment:
       - MOODLE_DATABASE_TYPE=mysqli
-      - MOODLE_DATABASE_HOST=moodle-database.cdzegrk4dcqr.us-east-1.rds.amazonaws.com
+      - MOODLE_DATABASE_HOST=moodle-database.cmb6gyiawodt.us-east-1.rds.amazonaws.com
       - MOODLE_DATABASE_PORT_NUMBER=3306
       - MOODLE_DATABASE_USER=admin
       - MOODLE_DATABASE_PASSWORD=12345678
       - MOODLE_DATABASE_NAME=moodle
       - MOODLE_EMAIL=admin@example.com
       - MYSQL_CLIENT_FLAVOR=mysql
-      - MYSQL_CLIENT_DATABASE_HOST=moodle-database.cdzegrk4dcqr.us-east-1.rds.amazonaws.com
+      - MYSQL_CLIENT_DATABASE_HOST=moodle-database.cmb6gyiawodt.us-east-1.rds.amazonaws.com
       - MYSQL_CLIENT_DATABASE_PORT_NUMBER=3306
       - MYSQL_CLIENT_DATABASE_ROOT_USER=admin
       - MYSQL_CLIENT_DATABASE_ROOT_PASSWORD=12345678
@@ -31,5 +31,5 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=fs-059f6cfb7509463fb.efs.us-east-1.amazonaws.com,nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport
-      device: fs-059f6cfb7509463fb.efs.us-east-1.amazonaws.com:/
+      o: addr=fs-066dbfa5e60f13c00.efs.us-east-1.amazonaws.com,nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport
+      device: fs-066dbfa5e60f13c00.efs.us-east-1.amazonaws.com:/
