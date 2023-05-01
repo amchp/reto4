@@ -1,6 +1,25 @@
 # Reto 4
 
-## Crear el RDS en amazon.
+## Crear un grupo de seguridad
+Primero entra CLI de AWS.
+
+Ve a AWS VPC.
+<img width="1280" alt="Screenshot 2023-05-01 at 4 38 36 PM" src="https://user-images.githubusercontent.com/28406146/235536443-9ecc13a8-900c-4ec2-b572-32ba94d82ab0.png">
+
+Entra a grupos de seguridad.
+<img width="1280" alt="Screenshot 2023-05-01 at 4 38 57 PM" src="https://user-images.githubusercontent.com/28406146/235536462-40a604d0-ee06-463f-86ab-02b23a39820f.png">
+
+Crea un nuevo grupo de seguridad.
+<img width="1280" alt="Screenshot 2023-05-01 at 4 39 15 PM" src="https://user-images.githubusercontent.com/28406146/235536504-eb95d5d3-d4dd-431f-95e1-70fb2c3e7612.png">
+
+Ponle un nombre y una descripción.
+<img width="1280" alt="Screenshot 2023-05-01 at 4 39 37 PM" src="https://user-images.githubusercontent.com/28406146/235536568-f27c9e0f-b973-497e-8f7a-39a303a1afc9.png">
+
+En las reglas de entrada pon los puertos que tienes que tener abiertos.
+<img width="1280" alt="Screenshot 2023-05-01 at 4 39 53 PM" src="https://user-images.githubusercontent.com/28406146/235536665-58bfab98-1392-4752-b8b5-2e89540e48dc.png">
+
+
+## Crear el RDS en amazon
 Primero entra CLI de AWS.
 
 Buscar RDS en los servicios de amazon.
