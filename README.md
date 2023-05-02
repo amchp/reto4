@@ -77,3 +77,99 @@ La copia parte azul que empieza con fs y ponla en el docker-compose en las secci
 <img width="1280" alt="Screenshot 2023-05-01 at 4 21 10 PM" src="https://user-images.githubusercontent.com/28406146/235533609-d226a038-5045-4308-8de0-56def8f010e3.png">
 
 Así ya esta listo el sistema de archivos.
+
+# Auto scaling y Balanceador de carga
+
+Primero que todo, hay que crear un template de EC2 que tenga en el campo user data el siguiente script
+
+```sh
+#!/bin/bash
+git clone https://github.com/amchp/reto4.git
+cd reto4
+chmod +x dockersetup.sh
+./dockersetup.sh
+cd moodle
+sudo docker compose up
+```
+
+![image](https://user-images.githubusercontent.com/69641274/235573361-0922e2c8-9e6d-4da5-8aaf-12953a8843ef.png)
+
+![image](https://user-images.githubusercontent.com/69641274/235573410-b241c22f-5d2e-4610-bde2-672fba92ae0c.png)
+
+Ahora es necesario ir a Auto Scaling Groups y crear uno
+
+![image](https://user-images.githubusercontent.com/69641274/235573472-8c4e189e-32c3-4a31-9987-e74032d39d17.png)
+
+Lo importante es seleccionar la plantilla creada
+
+![image](https://user-images.githubusercontent.com/69641274/235573493-3a59619b-f5bd-405d-b7b7-53902f05c2d8.png)
+
+Añadir todas las zonas disponibles
+
+![image](https://user-images.githubusercontent.com/69641274/235573582-fd3f71b8-b96c-401f-84fb-a80f4b61dddf.png)
+
+Ahora es necesario crear el load balancer
+
+![image](https://user-images.githubusercontent.com/69641274/235573639-307388f4-e742-4ca9-8e70-c3583bc6f76e.png)
+
+Importante, seleccionar Internet-facing
+
+![image](https://user-images.githubusercontent.com/69641274/235573698-ba090ed6-a3ec-46be-bf57-fc49895545eb.png)
+
+Y hacer que corra en el puerto 80 (Lo cual será temporal mientras se configura el certificado SSL)
+
+![image](https://user-images.githubusercontent.com/69641274/235573775-8d32b58a-2721-457d-9aaf-1c116daecf1c.png)
+
+Configura a tu placer
+
+![image](https://user-images.githubusercontent.com/69641274/235573808-34d171d8-8ee2-46a6-996a-196c80dc2f97.png)
+
+Y eso será todo. Hay balanceador de carga y grupo autoescalable listo.
+
+
+## Registrar dominio personalizado
+
+Para esta práctica se registró el dominio telematica.tech por medio de Hostinger.com.
+
+![image](https://user-images.githubusercontent.com/69641274/235567379-d30d966f-9c8f-4b03-91e6-210fe1f169fb.png)
+
+Se creó un registro que apunta al balanceador de carga (reto4 y www.reto4)
+
+![image](https://user-images.githubusercontent.com/69641274/235572112-20f223b1-346e-4b79-a2ae-a77eee48c552.png)
+
+Con esto, es necesario ir a AWS y dirigirte al Certificate Manager
+
+![image](https://user-images.githubusercontent.com/69641274/235572288-88a6845b-ed2c-4af4-953b-6242fa98f24f.png)
+
+Y aquí deberás solicitar el certificado para reto4.telematica.tech
+
+![image](https://user-images.githubusercontent.com/69641274/235572397-e1c626b1-5577-4899-9dd2-1b19ac1f6d43.png)
+
+Y deberás seleccionar la opción DNS. AWS te generará estos dos enlaces (Que deberás añadir a Hostinger como un CNAME)
+
+![image](https://user-images.githubusercontent.com/69641274/235572507-cd1712be-2672-4af8-b026-d700aa06f504.png)
+
+En caso de que la solicitud falle, deberás añadir estos registros a Hostinger
+
+![image](https://user-images.githubusercontent.com/69641274/235572600-fec9a05f-c48a-4083-aa03-ddb43b9692f5.png)
+![image](https://user-images.githubusercontent.com/69641274/235572608-4028fc0c-b1d1-4e15-9f6d-4b7988b616c9.png)
+
+Y esto sería todo, ahora tienes tu dominio registrado en AWS para permitir tráfico HTTPS.
+
+
+## Añadir dominio al balanceador de carga
+
+Debes ir a la configuración del balanceador y añadir un listener
+
+![image](https://user-images.githubusercontent.com/69641274/235572879-7c3b6afa-3ce6-4294-898a-bf5d94ddb920.png)
+
+![image](https://user-images.githubusercontent.com/69641274/235572979-9d6e3683-02df-43c0-b3de-670085c658f5.png)
+
+![image](https://user-images.githubusercontent.com/69641274/235572989-e9af90c5-1bb8-4f99-8fa1-b43543c30e2f.png)
+
+y acá al fondo, aparecerá el dominio listo para ser usado.
+
+Esta es toda la configuración necesaria para ver el proyecto corriendo
+
+![image](https://user-images.githubusercontent.com/69641274/235573996-7d84bf86-3974-4279-a95c-5a9b27936adc.png)
+
